@@ -1,0 +1,32 @@
+{% load i18n avatar_tags %}
+{% load bootstrap4 %}
+<html>
+<head>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>avatar</title>
+</head>
+<body >
+<div class="container mt-6">
+<div class="m-auto  bg-gray-200 rounded-md shadow-xl p-6 " >
+    <p>{% trans "Your current avatar: " %}</p>
+    {% avatar user %}
+    {% if not avatars %}
+        <p>{% trans "You haven't uploaded an avatar yet. Please upload one now." %}</p>
+    {% else %}
+        <form method="POST" action="{% url 'avatar_change' %}">
+            <ul>
+                {% bootstrap_form primary_avatar_form %}
+            </ul>
+            <p>{% csrf_token %}<input type="submit" class="btn btn-primary" class="" value="{% trans "Choose new Default" %}" /></p>
+        </form>
+    {% endif %}
+    <form enctype="multipart/form-data" method="POST" action="{% url 'avatar_add' %}">
+        {% bootstrap_form upload_avatar_form %}
+        <p>{% csrf_token %}<input type="submit" class="btn btn-primary" value="{% trans "Upload New Image" %}" /></p>
+        <a href="{% url 'profile-home' %}" class="btn btn-primary">{% trans "Back" %}</a>
+    </form>
+</div>
+</div>
+</body>
+</html>

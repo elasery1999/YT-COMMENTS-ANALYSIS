@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand text-white " href="/">Youtube comments Analytics</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="/accounts/profile/">
+                        <img src="{{request.user.user_profile.image.url_60x60}}" style="height:40px;"
+                             alt="{{request.user.fullname}}" class="avatar rounded-circle">
+                        <span class="header-username">{{request.user.get_full_name}}</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link " href="/account/logout/">Logout</a>
+                </li>
+                {% else %}
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/accounts/login/">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/accounts/signup/">Signup</a>
+                </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</nav>
